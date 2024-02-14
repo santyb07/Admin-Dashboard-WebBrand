@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "826461057379",
+    "project_id": "webgraphagency-ef9b4",
+    "storage_bucket": "webgraphagency-ef9b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826461057379:android:9ceeb2e45a567adef66356",
+        "android_client_info": {
+          "package_name": "com.admindashboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNtVTN5t6UaRN3LEHuB1Kt4unfUEUDYqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826461057379:android:2e1e9d1a18e9361bf66356",
+        "android_client_info": {
+          "package_name": "com.project1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNtVTN5t6UaRN3LEHuB1Kt4unfUEUDYqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
