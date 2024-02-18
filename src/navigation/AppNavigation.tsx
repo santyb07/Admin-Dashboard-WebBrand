@@ -15,7 +15,7 @@ import AppStack from './AppStack'
 
 export type RootStackParamList={
   Home:undefined,
-  LeadDetails:{ 
+  UserDetails:{ 
   businessName:string,
   mobileNumber:string,
   time:string,

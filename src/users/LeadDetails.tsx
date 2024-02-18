@@ -1,11 +1,10 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, Platform, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useRoute } from '@react-navigation/native';
 import FontAwesomeIcons from "react-native-vector-icons/FontAwesome"
 import FontAwesomeIcons5 from "react-native-vector-icons/FontAwesome5Pro"
 import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { colors } from '../utils/Constants';
-import { Chip } from '@rneui/themed';
 
 interface LeadDetailsParams{ 
     businessName:string,
@@ -20,9 +19,32 @@ const LeadDetails = (props:any) => {
     const {businessName, mobileNumber,time,date,logo} = route.params as LeadDetailsParams;;
     const [status,setStatus]= useState('Added');
     // console.log(logo)
+    let phoneNumber='';
 
     const changeStatus=(val:string)=>{
         setStatus(val);
+    }
+    const makeCall=()=>{
+        if(Platform.OS ==='android'){
+            phoneNumber= `tel:${mobileNumber}`
+        }else{
+            phoneNumber= `teleprompt:${mobileNumber}`
+        }
+        Linking.openURL(phoneNumber)
+        console.log('opening dialpad')
+    }
+    const sendMessage=()=>{
+        if(Platform.OS ==='android'){
+            phoneNumber= `+91${mobileNumber}`
+        }else{
+            phoneNumber= `+91${mobileNumber}`
+        }
+        Linking.openURL(`sms:${phoneNumber}`)
+        console.log('opening sms app')
+    }
+    const sendWhatsapp=()=>{
+        Linking.openURL(`whatsapp://send?text=${'Welcome to WebBrand'}&phone=+91${mobileNumber}`)
+        console.log('opening whatsapp')
     }
   return (
     <View className='flex-1 bg-white'>
@@ -34,11 +56,11 @@ const LeadDetails = (props:any) => {
                 <Text className='font-[Montserrat-Bold] text-xl text-blue-500'>{status}</Text>
                 </View>
                 <View className='flex-row space-x-4'>
-                <FontAwesomeIcons name={'phone'} size={22} color='white' 
+                <FontAwesomeIcons name={'phone'} size={22} color='white' onPress={makeCall}
                 style={{backgroundColor:colors.ActiveColor,paddingVertical:10,paddingHorizontal:13,borderRadius:30 }}/>
-                <MaterialIcons name={'android-messages'} size={22} color='white'
+                <MaterialIcons name={'android-messages'} size={22} color='white' onPress={sendMessage}
                         style={{backgroundColor:'#0064FF',paddingVertical:10,paddingHorizontal:11,borderRadius:30 }}/>
-                <FontAwesomeIcons name={'whatsapp'} size={22} color='white'
+                <FontAwesomeIcons name={'whatsapp'} size={22} color='white' onPress={sendWhatsapp}
                 style={{backgroundColor:'#25D366',paddingVertical:10,paddingHorizontal:12,borderRadius:30 }}
                 />
                 </View>
@@ -58,14 +80,15 @@ const LeadDetails = (props:any) => {
         </View>
         <View className='border-b border-gray-300'>
         </View>
-        <View className='px-4 py-4
+        {/* <View className='px-4 py-4
         '>
             <Text className='font-[Montserrat-SemiBold] text-lg text-gray-700'>Status</Text>
             <View className='flex-row items-center justify-start flex-wrap  space-y-4'>
                 {
+                    
                     LeadStatus.map((val,index)=>(
                             status==val ?
-                            <TouchableOpacity onPress={()=>changeStatus(val)}>
+                            <TouchableOpacity onPress={()=>changeStatus(val)} key={index}>
                             <View key={index} className='border border-blue-600 bg-blue-100 mr-2 px-2 py-1 rounded-2xl'>
                             <Text className='font-[Montserrat-SemiBold] text-blue-700'>{val}</Text>
                             </View>
@@ -79,7 +102,7 @@ const LeadDetails = (props:any) => {
                     ))
                 }
               </View>
-        </View>
+        </View> */}
         <View className='border-b border-gray-300'>
         </View>
   </View>

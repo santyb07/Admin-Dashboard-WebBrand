@@ -1,60 +1,54 @@
-import { View, Text, StyleSheet, Image, Touchable, TouchableOpacity, Platform, Linking } from 'react-native'
+import { View, Text, StyleSheet, Image, Touchable, TouchableOpacity, Platform, Linking, Alert } from 'react-native'
 import React from 'react'
 import FontAwesomeIcons from "react-native-vector-icons/FontAwesome"
-import { colors } from '../../utils/Constants'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { RootStackParamList } from '../../navigation/AppNavigation'
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '../utils/Constants';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 
-const LeadCard = ({businessName,mobileNumber,logo,createdAt}:any) => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
+
+const CategoryCard = ({categoryName,logo,created_at,deleteAllFilesInBucket}:any) => {
    
 
-    const dateString = createdAt;
+    const dateString = created_at;
     const dateObj = new Date(dateString);
     
     const date = dateObj.toDateString(); // "Tue Feb 13 2024"
     const time = dateObj.toLocaleTimeString();
-    let phoneNumber =''
 
-
-    const navigateToLeadDetails=()=>{
-      navigation.navigate('UserDetails',{businessName,mobileNumber,time,date,logo})
+    const deleteCategory=()=>{
+        Alert.alert('Delete Image Category', 'You can not perform this action', [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: () =>{
+                deleteAllFilesInBucket(categoryName);
+            }},
+          ]);
+      
+        
     }
-    const makeCall=()=>{
-      if(Platform.OS ==='android'){
-          phoneNumber= `tel:${mobileNumber}`
-      }else{
-          phoneNumber= `teleprompt:${mobileNumber}`
-      }
-      Linking.openURL(phoneNumber)
-      console.log('opening dialpad')
-  }
+  
   return (
     <View style={styles.card}>
-      <TouchableOpacity className='flex-row justify-between items-between' onPress={navigateToLeadDetails}>
+      <TouchableOpacity className='flex-row justify-between items-between'>
       {/* <View className="  "> */}
         <View className='flex-1 px-3 flex-row space-x-3 py-4'>
         <Image source={{uri:logo? logo: 'https://cdn.pixabay.com/photo/2018/05/21/19/50/sticker-3419259_1280.jpg'}} className='h-16 w-20 rounded-lg' resizeMode={'cover'}/>
         <View className='justify-around flex-col pr-20 space-y-1'>
-            <Text className='font-[Montserrat-SemiBold]' numberOfLines={1} ellipsizeMode="tail">{businessName ? businessName:'Lead'}</Text>
-            <Text className='text-gray-500 font-[Montserrat-SemiBold]'>+91 {mobileNumber}</Text>
+            <Text className='font-[Montserrat-SemiBold]' numberOfLines={1} ellipsizeMode="tail">{categoryName}</Text>
+            {/* <Text className='text-gray-500 font-[Montserrat-SemiBold]'>+91 {mobileNumber}</Text> */}
             <Text className=' text-xs text-gray-500 font-[Montserrat-Medium]'>Added : </Text>
             <Text className=' text-xs text-gray-500 font-[Montserrat-Medium]'>{time} {date} </Text>
         </View>
         </View>
-        <View className='justify-between items-end '>
-            <Text className='font-[Montserrat-Regular] bg-green-200 text-black px-2 py-1 rounded-md rounded-tl-none rounded-br-none'>
-                {/* New Lead */}
-                New User
-            </Text>
-            <View className='pb-4 px-4'>
-            {/* <FontAwesomeIcons name={'phone-square'} size={48} color={colors.ActiveColor2}/> */}
-            <FontAwesomeIcons name={'phone'} size={22} color='white' onPress={makeCall}
-                style={{backgroundColor:colors.ActiveColor2,paddingVertical:10,paddingHorizontal:13,borderRadius:30 }}/>
-                </View>
-
+        <View className='px-4 justify-center items-center'>
+            <TouchableOpacity onPress={deleteCategory}>
+            <MaterialCommunityIcons name='delete-circle' size={50} color="orange"/>
+            </TouchableOpacity>
         </View>
       {/* </View> */}
     </TouchableOpacity>
@@ -62,7 +56,7 @@ const LeadCard = ({businessName,mobileNumber,logo,createdAt}:any) => {
   )
 }
 
-export default LeadCard
+export default CategoryCard
 
 const styles = StyleSheet.create({
     card: {

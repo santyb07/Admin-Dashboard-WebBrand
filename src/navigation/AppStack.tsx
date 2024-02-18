@@ -2,21 +2,19 @@ import React, { useCallback, useRef, useState } from 'react'
 import { Stack } from './AppNavigation';
 import {BottomTabBar, BottomTabBarProps, createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FeatherIcons from "react-native-vector-icons/Feather"
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialIcons"
 import FontAwesomeIcons from "react-native-vector-icons/FontAwesome"
 
 import { colors } from '../utils/Constants';
 import UploadImages from '../UploadImages';
 import Leads from '../users/Leads';
 import LeadDetails from '../users/LeadDetails';
+import Categories from '../category/Categories';
 
 
 export type BottomTabParamList ={
-Leads: undefined,
- Main: undefined,
- Design: undefined,
- Grow: undefined,
- Business:undefined,
+// Users: undefined,
+Categories:undefined,
  Upload:undefined
 }
 
@@ -38,62 +36,46 @@ const HomeTabs=()=>(
       tabBarLabelStyle:{fontFamily:'Montserrat-Medium',fontSize:12},
     }}
     backBehavior='initialRoute'
-    initialRouteName='Leads'
+    initialRouteName='Categories'
     >  
          {/* <Tab.Screen 
-         name="Main" 
-         component={UploadImages}
-         options={{
-           tabBarLabel: 'Home',
-           tabBarIcon: ({focused ,color, size}:any) => (
-             <FeatherIcons name="home" color={color} size={24} />
-         ),
-    
-       }
-       } 
-         /> */}
-         {/* <Tab.Screen 
-         name="Design" 
-         component={UploadImages}
-         options={()=>({
-           tabBarLabel: 'Design',
-          //  tabBarVisible: false,
-           tabBarIcon: ({color, size}:any) => (
-             <FeatherIcons name="layout" color={color} size={24} />
-         ),
-        })} 
-         /> */}
-         {/* <Tab.Screen 
-         name="Grow" 
-         component={UploadImages}
-         options={()=>({
-           tabBarLabel: 'Grow',
-           tabBarIcon: ({color, size}:any) => (
-             <MaterialCommunityIcons name="rocket-launch" color={color} size={24} />
-             ),        
-            })} 
-            /> */}
-         <Tab.Screen 
-         name="Leads" 
+         name="Users" 
          component={Leads}
          options={()=>({
-           tabBarLabel: 'Leads',
+           tabBarLabel: 'Users',
+           tabBarLabelStyle:{fontFamily:'Montserrat-[Regular]'},
            tabBarIcon: ({color, size}:any) => (
-             <MaterialCommunityIcons name="account-group-outline" color={color} size={24} />
+             <FontAwesomeIcons name="users" color={color} size={24} />
              ),
             headerShown:true,
             // headerLeft:
             })}
-         />
+         /> */}
           <Tab.Screen 
          name="Upload" 
          component={UploadImages}
          options={()=>({
            tabBarLabel: 'Upload',
+           tabBarLabelStyle:{fontFamily:'Montserrat-[Regular]'},
            tabBarIcon: ({color, size}:any) => (
              <FontAwesomeIcons name="cloud-upload" color={color} size={24} />
              ),
              headerShown:true,
+             tabBarHideOnKeyboard:true
+             
+       })}
+         /> 
+         <Tab.Screen 
+         name="Categories" 
+         component={Categories}
+         options={()=>({
+           tabBarLabel: 'Categories',
+           tabBarLabelStyle:{fontFamily:'Montserrat-[Regular]'},
+           tabBarIcon: ({color, size}:any) => (
+             <MaterialCommunityIcons name="category" color={color} size={24} />
+             ),
+             headerShown:true,
+             tabBarHideOnKeyboard:true
              
        })}
          /> 
@@ -118,7 +100,7 @@ function AppStack() {
         // title:'Design',
       }}
       />
-      <Stack.Screen name="LeadDetails" component={LeadDetails} options={{headerShown:true,title:''}}/>
+      <Stack.Screen name="UserDetails" component={LeadDetails} options={{headerShown:true,title:'Details'}}/>
   </Stack.Navigator>
   );
 }
